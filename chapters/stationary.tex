@@ -1,1 +1,81 @@
 \section{平稳过程}
+
+% this section is written only based on the textbook, since the slides are flawed. 
+
+\subsection{平稳过程的定义}
+
+\begin{frame}
+    \frametitle{严平稳过程}
+    \begin{mydefinition}[严平稳过程]
+        见定义\ref{def:strictly-stationary-process}.
+    \end{mydefinition}
+    \begin{myproposition}[严平稳过程的数字特征]
+        设$X=\set{X(t),t\in T}$为严平稳过程，则
+        \begin{itemize}
+            \item 如果均值函数$m(t)=EX(t)$\textbf{存在}，则必为常数，记为$m$.
+            \item 如果方差函数$\mathrm{Var}(X(t))=E\parentheses{X(t)-m}^2$\textbf{存在}，则它也是常数，记为$\sigma^2$. 
+            \item 协方差函数仅与时间差有关，而与起点无关，记为
+            $
+                R(h)=E\brackets{(X(h)-m)(X(0)-m)}.
+            $
+            特别，由定义，$\mathrm{Var}(X(t))=R(0)$. 
+            \item 自相关函数 $r(\tau)=E\brackets{X(t)X(t+\tau)}$只与时间差$\tau$有关而与起点$t$无关；将
+            $\rho(v)=R(v)/\sigma^2=R(v)/R(0)$称为标准自相关函数. 由概率论中相关系数的性质\footnotemark 得$\rho(0)=1,\abs{\rho(v)}\leqslant1$.
+        \end{itemize}
+    \end{myproposition}
+    \footnotetext{缪柏其, 张伟平. 概率论与数理统计. 高等教育出版社, 2022.}
+\end{frame}
+
+\setcounter{footnote}{0}
+
+\begin{frame}
+    \frametitle{（宽）平稳过程}
+    \begin{mydefinition}[实（宽）平稳过程]\label{def:real-wide-stationary-process}
+        见定义\ref{def:wide-stationary-process}. 注意这里的随机过程$X=\set{X(t),t\in T}$是实值随机过程. 
+    \end{mydefinition}
+    \begin{mydefinition}[复（宽）平稳过程]\label{def:complex-wide-stationary-process}
+        设$X=\set{X(t),t\in T}$为一\textbf{复值}随机过程，如果对$\forall t\in T$，满足
+        \begin{itemize}
+            \item $EX^2(t)<\infty$；
+            \item $EX(t)=m$；
+            \item $R_X(s,t)=E\brackets{(X(t)-m)\overline{(X(s)-m)}}$仅与时间差$t-s$有关，
+        \end{itemize}
+        则称$X$为复（宽）平稳随机过程.
+    \end{mydefinition}
+    \begin{alertblock}{注意}
+        定义\ref{def:complex-wide-stationary-process}与定义\ref{def:real-wide-stationary-process}的重要区别在于
+        协方差函数的计算中增加了取复共轭的操作.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{严平稳过程与宽平稳过程之间的关系}
+    回顾第\ref{frame:wide-stationary-strict-stationary}页. 
+    \begin{columns}
+        \begin{column}{.6\columnwidth}
+            \begin{alertblock}{注意}
+                一般来说，这两个过程是互不包含的.
+                \begin{itemize}
+                    \item 严平稳过程由于不一定有二阶矩而不一定是宽平稳的；
+                    \item 宽平稳过程由于其有限维联合分布可能不满足式(\ref{eq:strictly-stationary})
+                            而不一定是严平稳的. 
+                \end{itemize}
+            \end{alertblock}    
+        \end{column}
+        \begin{column}{.3\columnwidth}
+            \begin{exampleblock}{特例}
+                \begin{itemize}
+                    \item 如果严平稳过程的二阶矩存在，则它是宽平稳的；
+                    \item 如果宽平稳过程是Gauss过程，则它是严平稳的. 
+                \end{itemize}
+            \end{exampleblock}  
+        \end{column}        
+    \end{columns}
+
+    \begin{mydefinition}[Gauss过程]
+        设$G=\set{G(t),-\infty<t<+\infty}$为一随机过程，
+        如果对任意正整数$k$以及$k$个时刻$t_1\leqslant t_2\leqslant \cdots t_k$，
+        $(G(t_1), G(t_2),\cdots, G(t_k))$的联合分布为$k$维正态分布，则称$G$为Gauss过程. 
+    \end{mydefinition}
+
+\end{frame}

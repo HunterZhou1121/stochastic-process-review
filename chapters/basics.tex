@@ -67,7 +67,7 @@
         $$        
     \end{mydefinition}
 
-    \begin{mydefinition}[严平稳过程]
+    \begin{mydefinition}[严平稳过程]\label{def:strictly-stationary-process}
         如果随机过程$X(t)$对任意的$t_1,\cdots,t_n\in T$
         和任何$h$都有
         \begin{equation}\label{eq:strictly-stationary}
@@ -81,7 +81,7 @@
 
 \begin{frame}
     \frametitle{（宽）平稳过程}
-    \begin{mydefinition}[宽平稳过程]
+    \begin{mydefinition}[宽平稳过程]\label{def:wide-stationary-process}
         如果随机过程$X(t)$的所有二阶矩存在，并且$EX(t)=m$为常数,
         协方差函数$R_X(s,t)$只与时间差$t-s$有关，
         则称$X(t)$为\textbf{（宽）平稳的}（wide-sense stationary）或\textbf{二阶矩平稳的}. 
@@ -95,7 +95,7 @@
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}\label{frame:wide-stationary-strict-stationary}
     \frametitle{宽平稳过程与严平稳过程之间的关系}
     \begin{alertblock}{注意}
         一般来说，这两个过程是互不包含的.
@@ -111,7 +111,7 @@
     \begin{exampleblock}{特例}
         \begin{itemize}
             \item 如果严平稳过程的二阶矩存在，则它是宽平稳的；
-            \item 如果宽平稳过程是高斯过程，则它是严平稳的. 
+            \item 如果宽平稳过程是Gauss过程，则它是严平稳的. 
         \end{itemize}
     \end{exampleblock}
 \end{frame}

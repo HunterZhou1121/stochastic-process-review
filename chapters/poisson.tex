@@ -1,0 +1,423 @@
+\section{Poisson过程}
+
+\subsection{基本概念}
+
+\begin{frame}
+    \frametitle{Poisson分布}
+    \begin{mydefinition}[Poisson分布]
+        如果随机变量$X$的分布律为
+        \begin{equation}
+            P(X=k)=\frac{\lambda^k}{k!}\mathrm e^{-\lambda},\quad k=1,2,\cdots,\lambda>0,
+        \end{equation}
+        则称$X$服从参数为$\lambda$的\textbf{Poisson分布}，记为$X\sim P(\lambda)$.
+    \end{mydefinition}
+
+    \begin{myproposition}[Poisson分布的数字特征]
+        如果$X\sim P(\lambda)$，那么$EX=\lambda,\mathrm{Var}(X)=\lambda$. 
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Poisson逼近定理}
+    \begin{mytheorem}[Poisson逼近定理]
+        如果 $X_n\sim B(n,p_n)$，且$n\to\infty,np_n\to\lambda>0$，那么
+        \begin{equation}
+            \lim_{n\to\infty}P(X_n=k)=\lim_{n\to\infty}\binom nk p_n^k(1-p_n)^{n-k}=\frac{\lambda^k}{k!}\mathrm e^{-\lambda},\quad k=0,1,2,\cdots.
+        \end{equation}
+    \end{mytheorem}
+    \begin{exampleblock}{实际应用\footnotemark}
+        \begin{itemize}
+            \item $n\geqslant 30,np_n\leqslant 5$时即可应用；
+            \item 当$n\geqslant100$时，$np_n\leqslant 10$的情形仍有较高的精度. 
+        \end{itemize}
+    \end{exampleblock}
+    \footnotetext{缪柏其, 张伟平. 概率论与数理统计. 高等教育出版社, 2022}
+\end{frame}
+
+\setcounter{footnote}{0}
+
+\begin{frame}
+    \frametitle{计数过程}
+    \begin{mydefinition}[计数过程]
+        设$X(t)$表示直到$t$时刻为止，某事件$A$所出现的次数. 
+        如果$X(t)$是取非负整数的随机变量，则称$X=\{X(t)\},t\geqslant 0$
+        是\textbf{计数过程}. 
+    \end{mydefinition}
+    \begin{myproposition}[计数过程的性质\footnotemark]
+        \begin{itemize}
+            \item $X(t)\geqslant0$；
+            \item $X(t)$取非负整数值；
+            \item 若$s<t$，则$X(s)\leqslant X(t)$；
+            \item 若$s<t$，则$X(t)-X(s)$表示在时间区间$[s,t]$内某事件$A$出现的次数. 
+        \end{itemize}
+    \end{myproposition}
+    \footnotetext{一般还设$X(0)=0$.}
+\end{frame}
+
+\begin{frame}
+    \frametitle{独立增量过程与平稳增量过程}
+    \begin{mydefinition}[平稳增量过程]
+        如果计数过程在任一区间内发生的事件个数只
+        依赖于时间区间的长度，即计数过程$X(t)$
+        在$(t,t+s](s>0)$内事件$A$发生的次数$X(t+s)-X(s)$
+        仅与时间差$s$有关而与$t$无关，则
+        计数过程$X(t)$称为\textbf{平稳增量过程}. 
+    \end{mydefinition}
+    \begin{mydefinition}[独立增量过程]
+        见定义\ref{def:independent-increment-process}.
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Poisson过程}
+    \begin{mydefinition}[Poisson过程的定义1]
+        如果一个计数过程$X=\{X(t),t\geqslant0\}$满足条件：
+        \begin{enumerate}
+            \item $X(0)=0$；
+            \item $X$是独立增量过程；
+            \item 在任一长度为$t$的区间中，事件$A$发生的次数服从
+            均值为$\lambda t$的Poisson分布，即
+            $\forall s,t\geqslant 0$，
+            \begin{equation}
+                P(X(t+s)-X(s)=n)=\frac{(\lambda t)^n}{n!}\mathrm e^{-\lambda t},\quad n=0,1,\cdots,
+            \end{equation}
+        \end{enumerate}
+        则称$X$是具有参数为$\lambda>0$的\textbf{Poisson过程}.
+    \end{mydefinition}
+    \begin{block}{注}
+        由$EX(t)=\lambda t$可知$\lambda=EX(t)/t$，即单位时间内事件$A$发生
+        平均次数，因此也称$\lambda$为此过程的\textbf{速度}或\textbf{强度}.         
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Poisson过程}
+    \begin{mydefinition}[Poisson过程的定义2]
+        如果一个计数过程$X=\{X(t),t\geqslant 0\}$满足条件：
+        \begin{enumerate}
+            \item $X(0)=0$；
+            \item $X$是独立平稳增量过程；
+            \item \begin{equation}\label{eq:poisson-process-definition-2-3}
+                P(X(t+h)-X(t)=1)=\lambda h+o(h),\quad h>0;
+            \end{equation}
+            \item \begin{equation}\label{eq:poisson-process-definition-2-4}
+                P(X(t+h)-X(t)\geqslant 2)=o(h),
+            \end{equation}
+            则称$X$是参数为$\lambda >0$的Poisson过程. 
+        \end{enumerate}
+    \end{mydefinition}
+    \begin{block}{注}
+        条件(\ref{eq:poisson-process-definition-2-3})和(\ref{eq:poisson-process-definition-2-4})说明，
+        在充分小的时间间隔内，最多有一个事件发生. 这种假设对于很多物理现象较容易得到满足. 
+    \end{block}
+\end{frame}
+
+\subsection{Poisson过程的性质}
+
+\begin{frame}
+    \frametitle{Poisson过程的数字特征}
+    \begin{myproposition}[Poisson过程的数字特征]
+        设$\{X(t),t\geqslant 0\}$是强度为$\lambda$的Poisson过程，则
+        \begin{itemize}
+            \item 均值$m_X(t)=EX(t)=E[X(t)-X(0)]=\lambda t$；
+            \item 方差$D_X(t)=\mathrm{Var}(X(t))=\lambda t$；
+            \item 自相关函数$r_X(s,t)=E[X(s)X(t)]=\lambda s(\lambda t+1),\quad s<t$；
+            \item 协方差函数$R_X(s,t)=r_X(s,t)-EX(s)EX(t)=\lambda s,\quad s<t$；
+            \item 特征函数$g_X(u)=\exp\{\lambda t(\mathrm e^{\mathrm iu}-1)\}$.
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{时间间隔与等待时间}
+    \begin{mydefinition}[时间间隔与等待时间]
+        设$\{X(t),t\geqslant 0\}$是参数为$\lambda$的Poisson过程.
+        令$X(t)$表示$t$时刻事件$A$发生的次数，则
+        第$n-1$次与第$n$次事件间的\textbf{时间间隔}记作$T_n$，而
+        \begin{equation*}
+            W_n=\sum_{i=1}^nT_i
+        \end{equation*}
+        称为第$n$次事件的\textbf{到达时间}或\textbf{等待时间}. 
+    \end{mydefinition}
+    \begin{mytheorem}[时间间隔的分布]
+        设$\{X(t),t\geqslant 0\}$ 是具有参数$\lambda$的Poisson过程，
+        $\{T_n(n\geqslant 1)\}$是对应的时间间隔序列，则随机变量$T_n(n=1,2,\cdots)$
+        是相互独立的，并且都服从均值为$1/\lambda$的指数分布，即$T_n\overset{\mathrm{i.i.d.}}{\sim} \mathrm{Exp}(\lambda)$.
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{时间间隔与等待时间}
+    \begin{block}{注}
+        平稳独立增量的假定保证了过程的无记忆性，因此
+        指数间隔是意料之中的.
+    \end{block}
+
+    \begin{mytheorem}[等待时间的分布]
+        设$\{W_n(n\geqslant 1)\}$是与Poisson过程$\{X(t),t\geqslant 0\}$
+        对应的一个等待时间序列，则$W_n$服从参数为$n,\lambda$的$\Gamma$分布或
+        Erlang分布，记作$W_n\sim\Gamma(n,\lambda)$. 它的概率密度为
+        \begin{equation}
+            f_{W_n}(t)=
+            \begin{cases}
+                \lambda \mathrm e^{-\lambda t}\dfrac{(\lambda t)^{n-1}}{(n-1)!},&t\geqslant 0,\\
+                0,&t<0.
+            \end{cases}
+        \end{equation}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{时间间隔与等待时间：例}
+    \begin{exampleblock}{例}
+        设$\{X_1(t),t\geqslant0\}$和$\{X_2(t),t\geqslant 0\}$
+        是两个相互独立的Poisson过程，它们的强度分别为$\lambda_1$和
+        $\lambda_2$. 即$W_k^{(1)}$为过程$X_1(t)$的第$k$次事件到达时间，
+        $W_1^{(2)}$为过程$X_2(t)$的第$1$次事件到达时间，则第一个Poisson过程
+        的第$k$次事件发生比第二个Poisson过程的第$1$次事件发生更早的概率为
+        \begin{align}
+            P\left(W_k^{(1)}<W_1^{(2)}\right)
+            &=\iint\limits_{x<y}f(x,y)\ \mathrm dx\mathrm dy\nonumber\\
+            &=\iint\limits_{x<y}f_{W_k^{(1)}}(x)f_{W_1^{(2)}}(y)\ \mathrm dx\mathrm dy\nonumber\\
+            &=\left(\frac{\lambda_1}{\lambda_1+\lambda_2}\right)^k.
+        \end{align}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{等待时间的条件分布}
+    \begin{mytheorem}[等待时间的条件分布]
+        设$\{X(t),t\geqslant 0\}$是Poisson过程，若
+        已知在$[0,t]$内事件$A$发生$n$次，则
+        这$n$个等待时间（到达时间）$W_1,W_2,\cdots,W_n$
+        与相应于$n$个$[0,t]$上均匀分布的独立随机变量的
+        顺序统计量有相同的分布.
+
+        此时$W_1,W_2,\cdots,W_n$在已知$X(t)=n$的条件下的
+        条件概率密度为
+        \begin{equation}
+            f_{W_1,W_2,\cdots,W_n|X(t)=n}(t_1,t_2,\cdots,t_n|n)=\frac{n!}{t^n},\quad 0<t_1<t_2<\cdots<t_n\leqslant t.
+        \end{equation}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{等待时间的条件分布：例}
+    \begin{exampleblock}{例}
+        顾客到达车站的过程是速率为$\lambda$的Poisson过程.
+        若火车在时刻$t$离站，问在$(0,t]$区间内
+        顾客的平均总等待时间是多少？
+    \end{exampleblock}
+    第$i$位到达的顾客的到达时间为$W_i$，等到时刻$t$发车需要等待
+    $t-W_i$. 在$(0,t]$区间内共来了$N(t)$位顾客，所以总等待时间为
+    \begin{small}
+    \begin{equation*}
+        \sum_{i=1}^{N(t)}(t-W_i),
+    \end{equation*}
+    \end{small}
+    而所求的平均总等待时间就是它的期望. 为求它，可以先求条件期望.
+    \begin{small}
+    \begin{align*}
+        E\left[\left.\sum_{i=1}^{N(t)}(t-W_i)\right|N(t)=n\right]
+        =E\left[\left.\sum_{i=1}^{n}(t-W_i)\right|N(t)=n\right]
+        =nt-E\left[\left.\sum_{i=1}^nW_i\right|N(t)=n\right].
+    \end{align*}
+    \end{small}
+\end{frame}
+
+\begin{frame}
+    \frametitle{等待时间的条件分布：例(Cont.)}
+    注意到给定$N(t)=n$，$W_i,i=1,2,\cdots,n$的联合密度与$(0,t]$
+    上均匀分布中随机样本$U_i,i=1,2,\cdots,n$的次序统计量$U_{(i)},i=1,2,\cdots,n$
+    的联合密度是一样的. 于是，
+    \begin{small}
+        \begin{equation*}
+            E\left[\left.\sum_{i=1}^nW_i\right|N(t)=n\right]
+            =E\left[\sum_{i=1}^n U_{(i)}\right]
+            =E\left[\sum_{i=1}^n U_{i}\right]
+            =\frac{nt}2.
+        \end{equation*}        
+    \end{small}
+    因此
+    \begin{small}
+        \begin{equation*}
+            E\left[\left.\sum_{i=1}^{N(t)}(t-W_i)\right|N(t)=n\right]=nt-\frac{nt}2=\frac{nt}2.
+        \end{equation*}        
+    \end{small}
+    最后得到
+    \begin{small}
+        \begin{equation*}
+            E\left[\sum_{i=1}^{N(t)}(t-W_i)\right]
+            =E\left[E\left[\left.\sum_{i=1}^{N(t)}(t-W_i)\right|N(t)\right]\right]
+            =E\left[\frac{N(t)t}2\right]
+            =\frac t2EN(t)=\frac{\lambda t^2}{2}.
+        \end{equation*}
+    \end{small}
+\end{frame}
+
+\begin{frame}
+    \frametitle{剩余寿命与年龄}
+    \begin{mydefinition}[剩余寿命与年龄]
+        设$X(t)$为在$(0,t]$内事件$A$发生的次数，
+        $W_n$表示第$n$个事件发生的时刻，则
+        $W_{X(t)}$表示在$t$时刻前最后一个事件发生的时刻，
+        $W_{x(t)+1}$表示在$t$时刻后首次事件发生的时刻.
+        令
+        \begin{equation*}
+            \begin{cases}
+                S(t)=W_{X(t)+1}-t,\\
+                V(t)=t-W_{X(t)}.
+            \end{cases}
+        \end{equation*}
+        称$S(t)$为\textbf{剩余寿命}或\textbf{剩余时间}，
+        $V(t)$为\textbf{年龄}. 
+    \end{mydefinition}
+    由定义可知，
+    \begin{equation*}
+        \forall t\geqslant 0,S(t)\geqslant 0,
+        0\leqslant V(t)\leqslant t.
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{剩余寿命与年龄}
+    \begin{mytheorem}[剩余寿命与年龄的分布]
+        设$\{X(t),t\geqslant 0\}$是具有参数$\lambda$的Poisson过程，则
+        \begin{itemize}
+            \item $S(t)$与$\{T_n,n\geqslant 1\}$同分布. 即，
+            \begin{equation}
+                P(S(t)\leqslant x)=1-\mathrm e^{-\lambda x},\quad x\geqslant 0.
+            \end{equation}
+            \item $V(t)$的分布为“截尾”的指数分布. 即，
+            \begin{equation}
+                P(V(t)\leqslant x)=
+                \begin{cases}
+                    1-\mathrm e^{-\lambda x},&0\leqslant x<t,\\
+                    1,&x\geqslant t.
+                \end{cases}
+            \end{equation}
+        \end{itemize}
+    \end{mytheorem}
+\end{frame}
+
+\subsection{Poisson过程的推广}
+
+\begin{frame}
+    \frametitle{非齐次Poisson过程}
+    \begin{mydefinition}[非齐次Poisson过程]
+        如果一个计数过程$X=\{X(t),t\geqslant 0\}$满足条件：
+        \begin{enumerate}
+            \item $X(0)=0$；
+            \item $X$是独立增量过程；
+            \item \begin{equation}
+                P(X(t+h)-X(t)=1)=\lambda(t)h+o(h),\quad h>0;
+            \end{equation}
+            \item \begin{equation}
+                P(X(t+h)-X(t)\geqslant 2)=o(h),
+            \end{equation}
+        \end{enumerate}
+        则称$X(t)$是参数为$\lambda(t)$的非齐次Poisson过程. 
+    \end{mydefinition}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{非齐次Poisson过程}
+    \begin{myproposition}[非齐次Poisson过程的分布]
+        该非齐次Poisson过程的增量$X(t+h)-X(t)$的分布为
+        \begin{equation}
+            P(X(t+h)-X(t)=k)
+            =\frac{\left(\displaystyle\int_t^{t+h}\lambda u\ \mathrm du\right)^k\exp\left(-\displaystyle\int_t^{t+h}\lambda(u)\ \mathrm du\right)}{k!},
+            \quad k=0,1,\cdots.
+        \end{equation}
+    \end{myproposition}
+    \begin{exampleblock}{简记}
+        设$s<t$，若记
+        \begin{equation*}
+            m(s,t)=\int_s^t\lambda(u)\ \mathrm du
+        \end{equation*}
+        为累计强度函数，则
+        \begin{equation*}
+            X(t)-X(s)\sim P(m(s,t)).
+        \end{equation*}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{复合Poisson过程}
+    如果事件的发生依从一Poisson过程，而
+    每一次事件都附带一个随机变量（如费用、损失等），
+    则累计值过程
+    \begin{equation*}
+        X(t)=\sum_{i=1}^{N(t)}Y_i
+    \end{equation*}
+    在$N(t)$是参数为$\lambda$的Poisson时是一个
+    复合Poisson过程（compound Poisson process），其中$Y_i$为独立同分布的随机变量，
+    它们有均值$EY_i=\mu$，方差$\mathrm{Var}(Y_i)=\tau^2$.
+    \begin{myproposition}[复合Poisson的数字特征]
+        $X(t)$是随机和. 
+        由式(\ref{eq:random_sum})等可立即得到
+        \begin{align}
+            EX(t)&=\lambda\mu t,\\
+            \mathrm{Var}(X(t))&=\lambda(\tau^2+\mu^2)t.
+        \end{align}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{更新过程}
+    \begin{mydefinition}[更新过程]
+        如果$X_i,i=1,2,\cdots,$为一串非负的随机变量，
+        它们独立同分布，分布函数为$F(x)$，
+        记 $W_0=0$，$\displaystyle W_n=\sum_{i=1}^nX_i$
+        表示第$n$次事件发生的时刻，则称
+        \begin{equation}
+            N(t)=\max\{n:W_n\leqslant t\}
+        \end{equation}
+        为更新过程. 
+    \end{mydefinition}
+    这里$N(t)$表示到时刻$t$时事件的总数. $W_i,i=1,2,\cdots$也常常
+    称为更新点，在这些更新点上过程又重新开始. 
+    
+    在更新过程中事件平均发生的次数称为\textbf{更新函数},记作
+    \begin{equation*}
+        m(t)=EN(t). 
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{更新过程}
+
+    \begin{myproposition}[更新过程的分布与更新函数]
+        更新过程$N(t)$的分布为
+        \begin{equation*}
+            P(N(t)=n)=F^{(n)}(t)-F^{(n+1)}(t),
+        \end{equation*}
+        而更新函数为
+        \begin{equation*}
+            m(t)=\sum_{n=1}^\infty F^{(n)}(t),
+        \end{equation*}
+        其中$F^{(n)}(t)$为$F(t)$的$n$重卷积，$F(t)$是
+        $X_i$的分布函数. 
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{更新过程}
+    \begin{mytheorem}[基本更新定理]
+        对一个一般的更新过程$N(t)$，若事件间隔时间$X_i$的期望为$\mu$，即
+        $EX_i=\mu$，则
+        \begin{equation}
+            \lim_{t\to\infty}\frac{EN(t)}{t}=\frac1\mu.
+        \end{equation}
+        也就是说，单位时间内的平均事件次数当$t$趋于无穷时
+        趋于一个固定的极限$1/\mu$. 
+    \end{mytheorem}
+    \begin{myproposition}
+        \begin{itemize}
+            \item Poisson过程是更新过程的特殊情形. 即，当更新过程
+            的事件时间间隔$X_i$为独立同指数分布时，更新过程就是Poisson过程. 
+            \item Poisson过程是一类非常特殊的连续时间Markov过程——纯生过程的特例. 
+        \end{itemize}
+    \end{myproposition}
+\end{frame}

@@ -1,0 +1,78 @@
+%!TEX program = xelatex
+\documentclass[aspectratio=169]{ctexbeamer}
+\usepackage{amsmath, amssymb, amsfonts, mathtools, bm, siunitx}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage[UKenglish]{datetime2}
+\usepackage{adjustbox}
+\usepackage{amstext}
+\usefonttheme{serif}
+\usetheme{boadilla}
+
+\title[SP Review]{Stochastic Process Review}
+\author[Kryze, S.]{Satine Kryze}
+\institute[USTC]{University of Science and Technology of China}
+\date{\DTMtoday}
+
+% 调整定义环境的样式
+\theoremstyle{definition}
+\setbeamertemplate{theorems}[numbered]
+\newtheorem{mytheorem}{定理}[section]
+\newtheorem{mydefinition}[mytheorem]{定义}
+\newtheorem{mylemma}[mytheorem]{引理}
+\newtheorem{mycorollary}[mytheorem]{推论}
+\newtheorem{myexample}[mytheorem]{例}
+\newtheorem{myproposition}[mytheorem]{命题}
+% \newtheorem{axiom}[theorem]{公理}
+\newtheorem{myaxiom}{公理}
+
+\numberwithin{equation}{section}
+
+\providecommand{\set}[1]{\left\{#1\right\}}
+\providecommand{\parentheses}[1]{\left(#1\right)}
+\providecommand{\brackets}[1]{\left[#1\right]}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{大纲}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\AtBeginSection[]{
+\setbeamertemplate{footline}[footlineoff]
+  \begin{frame}
+    \frametitle{大纲}
+    \tableofcontents[currentsection,subsectionstyle=show/show/hide]
+  \end{frame}
+\setbeamertemplate{footline}[footlineon]
+}
+
+\AtBeginSubsection[]{
+\setbeamertemplate{footline}[footlineoff]
+  \begin{frame}
+    \frametitle{大纲}
+    \tableofcontents[currentsection,subsectionstyle=show/shaded/hide]
+  \end{frame}
+\setbeamertemplate{footline}[footlineon]
+}
+
+\input{chapters/basics.tex}
+
+\input{chapters/poisson.tex}
+
+\input{chapters/markov.tex}
+
+\input{chapters/stationary.tex}
+
+\section{Brown运动}
+
+\begin{frame}
+  \frametitle{致谢}
+  \centerline{\Large 谢谢!}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,308 @@
+\section{预备知识}
+
+\subsection{随机过程的概率分布}
+
+\begin{frame}
+  \frametitle{有限维分布和数字特征}
+  对于随机过程$\{X(t),t\in T\}$，过程的一维分布为
+  $$
+    F_t(x)=P(X(t)\leqslant x),
+  $$
+  过程的\textbf{一维均值函数}为
+  $$
+    \mu_X(t)=EX(t),
+  $$
+  过程的\textbf{方差函数}为
+  $$
+    \sigma_X^2(t)=\mathrm{Var}(X(t)).
+  $$
+\end{frame}
+
+\begin{frame}
+  \frametitle{有限维分布和数字特征}
+  过程在$t_1,t_2$两个不同时刻值的联合二维分布为
+  $$
+  F_{t_1,t_2}(x_1,x_2)=P(X(t_1)\leqslant x_1,X(t_2)\leqslant x_2),
+  $$
+  过程的\textbf{自相关函数}为
+  $$
+  r_X(t_1,t_2)=E(X_1(t)X_2(t)),
+  $$
+  过程的\textbf{协方差函数}为
+  $$
+  R_X(t_1,t_2)\equiv\mathrm{Cov}(X(t_1),X(t_2))=E[(X(t_1)-\mu_X(t_1))(X(t_2)-\mu_X(t_2))].
+  $$
+\end{frame}
+
+\begin{frame}
+  \frametitle{自相关函数与协方差函数的性质}
+  \begin{enumerate}
+    \item \textbf{对称性}. 对任何$s,t$，有
+          \begin{align*}
+            r_X(s,t)&=r_X(t,s),\\
+            R_X(s,t)&=R_X(t,s).
+          \end{align*}
+
+    \item \textbf{非负定性}. 对任何$t_1,t_2,\cdots,t_n\in T$及任意系数$b_1,b_2,\cdots,b_n$有
+          \begin{align*}
+            \sum_{i=1}^n\sum_{j=1}^nb_ib_jr_X(t_i,t_j)&\geqslant 0,\\
+            \sum_{i=1}^n\sum_{j=1}^nb_ib_jR_X(t_i,t_j)&\geqslant 0.\\
+          \end{align*}
+
+  \end{enumerate}
+
+\end{frame}
+
+\subsection{平稳过程与独立增量过程}
+
+\begin{frame}
+    \frametitle{严平稳过程}
+    \begin{mydefinition}[同分布的随机向量]
+        如果一个随机向量$\bm X=(X_1,X_2,\cdots,X_n)$与
+        另一个随机向量$\bm Y=(Y_1,Y_2,\cdots,Y_n)$有
+        相同的联合分布函数，则称这两个随机向量是同分布的，
+        记为
+        $$
+          \bm X\overset{d}{=}\bm Y.
+        $$        
+    \end{mydefinition}
+
+    \begin{mydefinition}[严平稳过程]
+        如果随机过程$X(t)$对任意的$t_1,\cdots,t_n\in T$
+        和任何$h$都有
+        \begin{equation}\label{eq:strictly-stationary}
+            (X(t_1+h),\cdots,X(t_n+h))\overset{d}{=} (X(t_1),\cdots,X(t_n)),            
+        \end{equation}
+
+        则称$X(t)$为\textbf{严格平稳的}（strictly stationary or strict-sense stationary）. 
+    \end{mydefinition}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{（宽）平稳过程}
+    \begin{mydefinition}[宽平稳过程]
+        如果随机过程$X(t)$的所有二阶矩存在，并且$EX(t)=m$为常数,
+        协方差函数$R_X(s,t)$只与时间差$t-s$有关，
+        则称$X(t)$为\textbf{（宽）平稳的}（wide-sense stationary）或\textbf{二阶矩平稳的}. 
+    \end{mydefinition}
+    对宽平稳过程$X(t)$，由于对$-\infty<s,t<+\infty$，
+    $$
+        R_X(s,t)=R_X(0,t-s),
+    $$
+    所以可以记为$R_X(t-s)$. 显然对所有$t$，都有$R_X(t)=R_X(-t)$，
+    即$R_X(t)$为偶函数. 
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{宽平稳过程与严平稳过程之间的关系}
+    \begin{alertblock}{注意}
+        一般来说，这两个过程是互不包含的.
+
+        \begin{itemize}
+            \item 严平稳过程由于不一定有二阶矩而不一定是宽平稳的；
+            \item 宽平稳过程由于其有限维联合分布可能不满足式(\ref{eq:strictly-stationary})
+                    而不一定是严平稳的. 
+        \end{itemize}
+        
+        
+    \end{alertblock}
+    \begin{exampleblock}{特例}
+        \begin{itemize}
+            \item 如果严平稳过程的二阶矩存在，则它是宽平稳的；
+            \item 如果宽平稳过程是高斯过程，则它是严平稳的. 
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{独立增量过程}
+    \begin{mydefinition}[独立增量过程与平稳独立增量过程]\label{def:independent-increment-process}
+        对任意的$t_1<t_2<\cdots<t_n$且
+        $t_1,\cdots,t_n\in T$，如果
+        随机变量
+        $$
+            X(t_2)-X(t_1),X(t_3)-X(t_2),\cdots,X(t_n)-X(t_{n-1})
+        $$
+        是相互独立的，则称$X(t)$为\textbf{独立增量过程}.
+        
+        如果进一步有，对任意的$t_1,t_2$，
+        \begin{equation*}
+            X(t_1+h)-X(t_1)\overset{d}{=}X(t_2+h)-X(t_2),
+        \end{equation*}
+        则称$X(t)$为\textbf{平稳独立增量过程}. 
+    \end{mydefinition}
+    \begin{myproposition}
+        可以证明，平稳独立增量过程的均值函数一定是$t$的线性函数. 
+    \end{myproposition}
+\end{frame}
+
+\subsection{条件期望与矩母函数}
+
+\begin{frame}
+    \frametitle{条件期望}
+    条件期望通常统一记为
+    \begin{equation*}
+        E(X|Y=y)=\int x\ \mathrm dF(x|y).
+    \end{equation*}
+    \begin{block}{注}
+        $E(X|Y=y)=g(y)$ 是一个关于$y$的数值，
+        而$E(X|Y)=g(Y)$ 是一个关于$Y$的随机变量函数，从而是随机变量.  
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{条件期望的性质}
+    \begin{myproposition}
+        \begin{itemize}
+            \item 若$X$与$Y$独立，则 $E(X|Y=y)=EX$.
+            \item 条件期望的平滑性（全期望公式）：
+                \begin{equation}
+                    E(E(X|Y))=EX.
+                \end{equation}
+            \item 对随机变量$X,Y$的函数$\phi(X,Y)$，有
+                \begin{equation}
+                    E[\phi(X,Y)|Y=y]=E[\phi(X,y)|Y=y].
+                \end{equation}
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{条件期望的性质}
+    \begin{myproposition}
+        若$X,Y$为随机变量，$EX,EY,E(g(Y))$存在，则
+        \begin{itemize}
+            \item 当$X,Y$独立时，有$E(Y|X)=EY$.
+            \item $E(g(X)Y|X)=g(X)E(Y|X)$.
+            \item $E(c|X)=c$.
+            \item $E(g(X)|X)=g(X)$. 
+            \item $E[Y-E(Y|X)]^2\leqslant E[Y-g(X)]^2$.
+        \end{itemize}
+    \end{myproposition}   
+    \begin{block}{注}
+        在均方误差最小的准则下，若要找到基于$X$对$Y$的最佳预报函数$g(\cdot)$，
+        也就是要求出$g$使得$E[Y-g(X)]^2$最小，
+        则可以证明所求出的$g(x)$就是$E(Y|X=x)$，这也就是最后一条性质的意义. 
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{条件方差}
+    \begin{mydefinition}[条件方差]
+        若$E\{[Y-E(Y|X)]^2|X\}$存在，则称其为随机变量$X$条件下随机变量$Y$的
+        条件方差，记为$D(Y|X)$.
+    \end{mydefinition}
+    \begin{myproposition}[条件方差的性质]
+        \begin{itemize}
+            \item $D(Y|X)=E\left(Y^2|X\right)-[E(Y|X)]^2$.
+            \item $D(X|Y)=E\left(X^2|Y\right)-[E(X|Y)]^2$.
+        \end{itemize}
+    \end{myproposition}
+    \begin{myproposition}
+        \begin{equation*}
+            D(Y)=E(D(Y|X))+D(E(Y|X)).
+        \end{equation*}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{矩母函数}
+    \begin{mydefinition}[矩母函数]
+        随机变量$X$的矩母函数（moment generating function, MGF）定义为
+        随机变量$\exp\{tX\}$的期望，记作
+        $g(t)$，即
+        \begin{equation}
+            g(t)=E\left[\mathrm e^{tX}\right].
+        \end{equation}
+    \end{mydefinition}
+    \begin{myproposition}[矩母函数的性质]
+        \begin{itemize}
+            \item 当矩母函数存在时，它唯一地确定了$X$的分布.
+            \item \begin{equation}
+                E\left[X^n\right]=g^{(n)}(0),\quad n\geqslant 1.
+            \end{equation}
+            \item 对于\textbf{相互独立}的随机变量$X,Y$，
+            \begin{equation}
+                g_{X+Y}(t)=g_X(t)g_Y(t).
+            \end{equation}
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{矩母函数}
+    \begin{block}{注}
+        随机变量的矩母函数\textbf{不一定存在}，所以
+        现在也常用特征函数
+        \begin{equation*}
+            \varphi(t)=E\left[\mathrm e^{\mathrm itX}\right]
+        \end{equation*}
+        代替矩母函数. 
+    \end{block}
+    \begin{exampleblock}{随机和}
+        记$X_1,X_2,\cdots$为一列\textbf{独立同分布}的随机变量，
+        $N$为非负整数值随机变量，且与$X_i$序列\textbf{独立}，
+        则
+        \begin{equation*}
+            Y=\sum_{i=1}^NX_i
+        \end{equation*}
+        称为随机和. 
+
+
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{随机和}
+    \begin{exampleblock}{随机和的矩母函数及期望等数字特征}
+        先算条件期望，再借助全期望公式即可求得
+        随机和$Y$的矩母函数为
+        \begin{equation}
+            g_Y(t)=E\left[(g_X(t))^N\right],
+        \end{equation}
+        且由此可得出
+        \begin{align}\label{eq:random_sum}
+            EY&=EN\cdot EX,\\
+            EY^2&=EN\cdot\mathrm{Var}(X)+EN^2\cdot E^2X,\\
+            \mathrm{Var}(Y)&=EN\cdot \mathrm{Var}(X)+E^2X\cdot\mathrm{Var}(N).
+        \end{align}
+    \end{exampleblock}
+\end{frame}
+
+\subsection{其它}
+
+\begin{frame}
+    \frametitle{$\Gamma$函数}
+
+    \begin{mydefinition}[$\Gamma$函数]
+        对任意实数$x>0$，
+        \begin{equation}
+            \Gamma(x)=\int_0^{+\infty}t^{x-1}\mathrm e^{-t}\ \mathrm dt.
+        \end{equation}
+    \end{mydefinition}
+
+    \begin{myproposition}[$\Gamma$函数的递推公式]
+        当$x>0$时，有$\Gamma(x+1)=x\Gamma(x)$. 特别地，对$n\in\mathbb{N}$由
+        \begin{align*}
+            \Gamma(1)=1,\quad
+            \Gamma(1/2)=\sqrt\pi
+        \end{align*}
+        得到
+        \begin{align}
+            \Gamma(n+1)=n!,\quad
+            \Gamma(n+1/2)=\frac{(2n-1)!!}{2^n}\sqrt\pi.
+        \end{align}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{利用$\Gamma$函数求积分}
+    \begin{exampleblock}{利用$\Gamma$函数求积分}
+        \begin{align}
+            \int_0^{+\infty}t^\alpha \mathrm e^{-\beta t}\ \mathrm dt&=\frac{\Gamma(\alpha+1)}{\beta^{\alpha+1}},\\
+            \int_0^{+\infty}t^\alpha \mathrm e^{-\beta t^2}\ \mathrm dt&=\frac{\Gamma((\alpha+1)/2)}{2\beta^{(\alpha+1)/2}}.
+        \end{align}
+    \end{exampleblock}
+\end{frame}

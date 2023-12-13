@@ -1,0 +1,531 @@
+\section{Markov链}
+
+\subsection{Markov链的定义及转移概率}
+
+\begin{frame}
+    \frametitle{Markov链的定义}
+    \begin{mydefinition}[Markov链]
+        设有随机过程$\{X_n,n\in T\}$，若对于任意的正整数$n\in T$
+        和任意的状态$i_0,i_1,\cdots,i_n,i_{n+1}\in I$，条件概率满足Markov性质（无后效性）
+        \begin{equation}
+            P(X_{n+1}=i_{n+1}|X_0=i_0,X_1=i_1,\cdots,X_n=i_n)=P(X_{n+1}=i_{n+1}|X_n=i_n),
+        \end{equation}
+        就称$\{X_n,n\in T\}$为\textbf{Markov链}，简称\textbf{马氏链}. 
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markov链的转移概率}
+    \begin{mydefinition}[Markov链的转移概率]
+        称条件概率
+        \begin{equation}
+            p_{ij}(n)=P(X_{n+1}=j|X_n=i),\quad i,j\in I
+        \end{equation}
+        为Markov链$\{X_n,n\in T\}$在时刻$n$的\textbf{一步转移概率}，简称为\textbf{转移概率}. 
+        
+    \end{mydefinition}
+    \begin{mydefinition}[齐次Markov链与平稳转移概率]
+        若对任意的$i,j\in I$，Markov链$\{X_n,n\in T\}$
+        的转移概率$p_{ij}(n)$与时刻$n$无关，则称Markov链是
+        \textbf{齐次}的，并记$p_{ij}(n)$为$p_ij$. 此时，我们也说Markov
+        链具有\textbf{平稳转移概率}. 
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{一步转移概率矩阵}
+    \begin{mydefinition}
+        \begin{equation}
+            \bm P=
+            \begin{pmatrix}
+                p_{00} & p_{01} & \cdots & p_{0n} & \cdots\\
+                p_{11} & p_{11} & \cdots & p_{1n} & \cdots\\
+                \vdots & \vdots & \ddots & \vdots & \vdots\\
+            \end{pmatrix}
+        \end{equation}
+        称为是Markov链$\{X_n,n\in T\}$的\textbf{一步转移概率矩阵}.
+    \end{mydefinition}
+    \begin{myproposition}[一步转移概率矩阵的性质]
+        \begin{itemize}
+            \item $p_{ij}\geqslant 0,\quad i,j\in I$；
+            \item $\displaystyle\sum_{j\in I}p_{ij}=1,\quad i\in I$.
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$n$步转移概率}
+    \begin{mydefinition}[$n$步转移概率]
+        称条件概率
+        \begin{equation}
+            p_{ij}^{(n)}=P(X_{m+n}=j|X_m=i),\quad i,j\in I,m\geqslant 0,n\geqslant 1
+        \end{equation}
+        为Markov链$\{X_n,n\in T\}$的\textbf{$n$步转移概率}，并称
+        \begin{equation}
+            \bm P^{(n)}=
+            \begin{pmatrix}
+                p_{ij}^{(n)}
+            \end{pmatrix}
+        \end{equation}
+        为 Markov 链的\textbf{$n$步转移概率矩阵}.
+        规定：
+        \begin{equation}
+            p_{ij}^{(0)}=
+            \begin{cases}
+                0,&i\neq j,\\
+                1,&i=j.
+            \end{cases}
+        \end{equation}
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$n$步转移概率的性质}
+    \begin{mytheorem}[$n$步转移概率的性质]
+        设$\{X_n,n\in T\}$为Markov链，则对于任意整数
+        $n\geqslant 0,0\leqslant l<n$和任意状态$i,j\in I$，
+        $n$步转移概率$p_{ij}^{(n)}$具有下列性质：
+        \begin{small}
+        \begin{enumerate}
+            \item （Chapman-Kolmogorov方程）
+            \begin{equation}
+                p_{ij}^{(n)}=\sum_{k\in I}p_{ik}^{(l)}p_{kj}^{(n-l)};
+            \end{equation}
+            \item \begin{equation*}
+                p_{ij}^{(n)}=\sum_{k_1\in I}\cdots\sum_{k_{n-1}\in I}p_{ik_1}p_{k_1k_2}\cdots p_{k_{n-1}j};
+            \end{equation*}
+            \item \begin{equation}
+                \bm P^{(n)}=\bm P\cdot \bm P^{(n-1)};
+            \end{equation}
+            \item \begin{equation}
+                \bm P^{(n)}=\bm P^n.
+            \end{equation}
+        \end{enumerate}
+        \end{small}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{初始概率和绝对概率}
+    \begin{columns}
+        \begin{column}{.45\linewidth}
+            \begin{mydefinition}
+                \begin{itemize}
+                    \item 初始概率：
+                    \begin{equation*}
+                        p_j=P(X_0=j),\quad j\in I;
+                    \end{equation*}
+                    \item 初始分布：
+                    \begin{equation*}
+                        \{p_j\}=\{p_j,\quad j\in I\};
+                    \end{equation*}
+                    \item 初始概率向量：
+                    \begin{equation*}
+                        \bm P^T(0)=(p_1,p_2,\cdots).
+                    \end{equation*}
+                \end{itemize}
+            \end{mydefinition}
+        \end{column}
+        \begin{column}{.45\linewidth}
+            \begin{mydefinition}
+                \begin{itemize}
+                    \item 绝对概率：
+                    \begin{equation*}
+                        p_j(n)=P(X_n=j),\quad j\in I;
+                    \end{equation*}
+                    \item 绝对分布：
+                    \begin{equation*}
+                        \{p_j(n)\}=\{p_j(n),\quad j\in I\};
+                    \end{equation*}
+                    \item 绝对概率向量：
+                    \begin{equation*}
+                        \bm P^T(n)=(p_1(n),p_2(n),\cdots),\quad n>0.
+                    \end{equation*}
+                \end{itemize}
+            \end{mydefinition}
+        \end{column}        
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{绝对概率的性质}
+
+    \begin{mytheorem}[绝对概率的性质]
+        设$\{X_n,n\in T\}$为Markov链，则对于任意整数$n\geqslant 1$和任意状态
+        $j\in I$，绝对概率$p_j(n)$具有下列性质：
+        \begin{enumerate}
+            \item \begin{equation*}
+                p_j(n)=\sum_{i\in I}p_i p_{ij}^{(n)};
+            \end{equation*}
+            \item \begin{equation*}
+                p_j(n)=\sum_{i\in I}p_i(n-1)p_{ij};
+            \end{equation*}
+            \item \begin{equation*}
+                \bm P^T(n)=\bm P^T(0)\cdot \bm P^{(n)};
+            \end{equation*}
+            \item \begin{equation*}
+                \bm P^T(n)=\bm P^T(n-1)\cdot \bm P.
+            \end{equation*}
+        \end{enumerate}
+    \end{mytheorem}
+\end{frame}
+
+\subsection{Markov链的状态分类}
+
+\begin{frame}
+    \frametitle{Markov链的状态分类}
+    设$\{X_n,n>0\}$是齐次Markov链，其状态空间$I=\{0,1,2,\cdots\}$，转移概率是$p_{ij},\quad i,j\in I$，
+    初始分布为$\{p_j,\quad j\in I\}$.
+    以下是将要讨论的Markov链的状态分类以及状态之间的关系：
+    \begin{itemize}
+        \item 状态间的可达关系与互达关系；
+        \item 状态的周期与非周期性；
+        \item 状态的常返性与瞬过性（非常返性）. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{可达关系与互达关系}
+
+    \begin{mydefinition}[可达关系与互达关系]
+        \begin{enumerate}
+            \item 若存在$n>0$使得$p_{ij}^{(n)}>0$，则称自状态$i$\textbf{可达}（accessible）状态$j$，并
+            记为$i\to j$；
+            \item 若$i\to j$且$j\to i$，则称状态$i$与状态$j$\textbf{互达}（communicate），并记为$i\leftrightarrow j$. 
+        \end{enumerate}
+    \end{mydefinition}
+
+    \begin{columns}
+        \begin{column}{.45\linewidth}
+            \begin{mytheorem}[可达关系与互达关系的传递性]
+                \begin{itemize}
+                    \item 若$i\to j$且$j\to k$，则$i\to k$；
+                    \item 若$i\leftrightarrow j$且$j\leftrightarrow k$，则$i\leftrightarrow k$.
+                \end{itemize}
+            \end{mytheorem}            
+        \end{column}
+        \begin{column}{.45\linewidth}
+            \begin{mytheorem}[互达状态的等价性]
+                互达关系是等价关系；有互达关系的状态是同一类型的，即若$i\leftrightarrow j$，则
+                \begin{enumerate}
+                    \item $i,j$同为常返或瞬过（非常返）；
+                    \item $i,j$同为正常返或零常返；
+                    \item $i,j$有相同的周期. 
+                \end{enumerate}
+            \end{mytheorem}            
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{状态的周期性}
+    \begin{mydefinition}[状态的周期性]
+        若集合$\left\{n:n\geqslant 1,p_{ii}^{(n)}>0\right\}\neq\varnothing$，则称该集合
+        的最大公约数
+        \begin{equation}
+            d=d(i)=\gcd\left\{n:p_{ii}^{(n)}>0\right\}
+        \end{equation}
+        为状态$i$的\textbf{周期}.
+        如果$d>1$，称状态$i$为\textbf{周期}的；如果$d=1$，称状态
+        $i$为\textbf{非周期}的.
+    \end{mydefinition}
+    \begin{mytheorem}
+        如果状态$i$的周期为$d$，则存在正整数$M$使得对一切$n\geqslant M$有
+        $p_{ii}^{(nd)}>0$. 
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{状态的常返性}
+    \begin{mydefinition}[首达概率]
+        状态$i$经$n$步首次到达状态$j$的概率
+        \begin{align*}
+            f_{ij}^{(n)}&=P(X_{m+n}=j,X_{m+v}\neq j,1\leqslant v\leqslant n-1|X_m=i),\quad n\geqslant 1
+        \end{align*}
+        称为\textbf{首达概率}. 规定$f_{ij}^{(0)}=0$. 
+        系统从状态$i$出发，经有限步迟早会（首次）到达状态$j$的概率为
+        \begin{equation*}
+            f_{ij}=\sum_{n=1}^\infty f_{ij}^{(n)},\quad 0\leqslant f_{ij}^{(n)}\leqslant f_{ij}\leqslant 1.
+        \end{equation*}
+    \end{mydefinition}
+    \begin{mydefinition}[平均返回时间]
+        称期望值$\displaystyle\mu_i=\sum_{n=1}^\infty n\cdot f_{ii}^{(n)}$
+        为状态$i$的\textbf{平均返回时间}. 
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{状态的常返性}
+    \begin{mydefinition}[状态的常返性与瞬过性]
+        \begin{itemize}
+            \item 若$f_{ii}=1$，则称状态$i$\textbf{常返}（recurrent）；
+            \item 若$f_{ii}<1$，则称状态$i$\textbf{瞬过}（transient）或\textbf{非常返}.
+        \end{itemize}
+    \end{mydefinition}
+    \begin{mydefinition}[常返态的分类]
+        \begin{itemize}
+            \item 若$\mu_i<\infty$，则称常返态$i$是\textbf{正常返}的；
+            \item 若$\mu_i=\infty$，则称常返态$i$是\textbf{零常返}的. 
+        \end{itemize}
+    \end{mydefinition}
+    \begin{mydefinition}[遍历态]
+        非周期的正常返态称为\textbf{遍历的}（ergodic）.
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$n$步转移概率与首达概率的关系}
+    \begin{mytheorem}[$n$步转移概率与首达概率的关系]
+        对任意状态$i,j\in I$及$1\leqslant n<\infty$，有
+        \begin{equation*}
+            p_{ij}^{(n)}=\sum_{k=1}^n f_{ij}^{(k)}p_{jj}^{(n-k)}=\sum_{k=0}^nf_{ij}^{(n-k)}p_{jj}^{(k)}.
+        \end{equation*}
+    \end{mytheorem}
+    \begin{exampleblock}{应用}
+        可以利用下面的变式来求从状态$i$经$n$步首次到达状态$j$的概率：
+        \begin{equation}
+            f_{ij}^{(n)}=p_{ij}^{(n)}-\sum_{k=1}^{n-1}f_{ij}^{(k)}p_{jj}^{(n-k)}.
+        \end{equation}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{常返性的判别}
+    \begin{mytheorem}[常返性的判别]
+        \begin{enumerate}
+            \item <1->状态$i$常返的充分必要条件为
+            $\displaystyle\sum_{n=0}^\infty p_{ii}^{(n)}=\infty$；\\
+            状态$i$非常返的充分必要条件为
+            $\displaystyle\sum_{n=0}^\infty p_{ii}^{(n)}=\frac{1}{1-f_{ii}}<\infty$.
+            \item <1->若状态$i$是常返态，则\\
+                $i$是零常返当且仅当$\displaystyle\lim_{n\to\infty}p_{ii}^{(n)}=0$；\\
+                $i$是遍历态当且仅当$\displaystyle\lim_{n\to\infty}p_{ii}^{(n)}=1/\mu_i>0$.
+            \item <1->若$i$是周期为$d$的常返态，则$\displaystyle\lim_{n\to\infty}p_{ii}^{(nd)}=d/\mu_i$；\\
+                若$i$是非常返态，则$\displaystyle\lim_{n\to\infty}p_{ii}^{(n)}=0$.
+        \end{enumerate}
+    \end{mytheorem}
+\end{frame}
+
+\subsection{Markov链状态空间的分解}
+
+\begin{frame}
+    \frametitle{基本概念}
+    \begin{mydefinition}
+        \begin{itemize}
+            \item 状态空间$I$的子集$C$，若对于任意$i\in C$及$k\notin C$
+            都有$p_{ik}=0$，则称子集$C$为（随机）\textbf{闭集}. 
+            \item 若闭集$C$的状态互达，则称$C$为\textbf{不可约}的. 
+            \item 若Markov链$\set{X_n,n\in T}$的状态空间$I$是不可约的，
+            则称该Markov链为\textbf{不可约}（irreducible）.
+        \end{itemize}
+    \end{mydefinition}
+    \begin{mytheorem}
+        $C$是闭集的充分必要条件是：对于任意$i\in C$及$k\notin C$，都有
+        \begin{equation*}
+            p_{ik}^{(n)}=0,\quad n\geqslant 1.
+        \end{equation*}
+        特别。单点集$C=\set{i}$是闭集当且仅当状态$i$是吸收态（即$p_{ii}=1$）.
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markov链状态空间的分解}
+    \begin{mytheorem}
+        任一Markov链的状态空间$I$，可唯一地分解成
+        若干个互不相交的子集之和
+        \begin{equation*}
+            I=D\cup C_1\cup C_2\cup\cdots,
+        \end{equation*}
+        使得
+        \begin{enumerate}
+            \item $D$由全体非常返态组成；
+            \item 每个$C_n$是常返态组成的不可约闭集；
+            \item $C_n$中的状态同类（同为正常返或零常返）有相同的周期，且
+            \begin{equation*}
+                f_{jk}=1,\quad j,k\in C_n,
+            \end{equation*}或者说$j\leftrightarrow k$. 
+        \end{enumerate}
+        称$C_n$为\textbf{基本常返闭集}.
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{关于Markov链状态的几个结论}
+    \begin{myproposition}
+        \begin{itemize}
+            \item 若Markov链有一个零常返态，则必有无穷多个零常返态；
+            \item 有限状态的Markov链，不可能含有零常返态，也不能全是非常返态；
+            \item 不可约的有限状态Markov链必为正常返；
+            \item 直线上的对称随机游动是零常返的，非对称的随机游动是瞬过的，且二维对称随机游动也是零常返的，
+            但三维及以上的对称随机游动却是瞬过的；
+            \item 对一个不可约、非周期、有限状态Markov链，存在$N$使得当$n\geqslant N$时
+            $n$步转移概率矩阵$\bm P^{(n)}$的所有元素都非零. 这样的Markov链称为是正则的. 
+            对一个正则的有限状态Markov链，极限分布总是存在，且与初始分布无关. 即，
+            \begin{equation*}
+                \lim_{n\to\infty}p_{ij}^{(n)}=\pi_j,\quad i,j\in I.
+            \end{equation*}
+            这在下一节将详细讨论. 
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\subsection{Markov链的极限定理与平稳分布}
+
+\begin{frame}
+    \frametitle{Markov链的极限定理}
+    \begin{mytheorem}[Markov链的极限定理]
+        Markov链的$n$步转移概率$p_{ij}^{(n)}$的极限为
+        \begin{equation}
+            \lim_{n\to\infty}p_{ij}^{(n)}=
+            \begin{cases}
+                0,&j\text{ 为瞬过（非常返）或零常返},\\
+                1/\mu_j,&j\text{ 为遍历态（非周期的正常返）},\\
+                \text{不确定},&j\text{ 为周期正常返}.
+            \end{cases}
+        \end{equation}
+        但若状态$j$是周期为$d$的常返状态，则有
+        \begin{equation}
+            \lim_{n\to\infty}p_{jj}^{(nd)}=d/\mu_j.
+        \end{equation}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markov链的遍历性}
+    \begin{mydefinition}[Markov链的遍历性]
+        设齐次Markov链$\set{X_n,n\geqslant 0}$的状态空间
+        为$I$，若对于一切$i,j\in I$，$n$步转移概率$p_{ij}^{(n)}$
+        存在不依赖于$i$的极限
+        \begin{equation}
+            \lim_{n\to\infty}p_{ij}^{(n)}=p_j(>0)=\frac1{\mu_j},
+        \end{equation}
+        则称该Markov链具有遍历性，并称$p_j$为状态$j$的稳态概率. 
+    \end{mydefinition}
+    \begin{block}{注}
+        Markov链具有遍历性的充分必要条件是它不可约、非周期、正常返. 
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markov链的平稳分布}
+    \begin{mydefinition}[Markov链的平稳分布]
+        称绝对概率分布$\set{\pi_j,\quad j\in I}$为Markov链的\textbf{平稳分布}，如果它满足
+        %\begin{small}
+            \begin{equation}
+                \begin{cases}
+                    \pi_j=\displaystyle\sum_{i\in I}\pi_ip_{ij},\quad j\in I,\\
+                    \displaystyle\sum_{i\in I}\pi_i=1\text{ 且 }\pi_j\geqslant 0,\quad j\in I.
+                \end{cases}
+            \end{equation}            
+        %\end{small}
+    \end{mydefinition}
+    \begin{block}{注}
+        若记概率分布 $\bm\pi^T=(\pi_1,\pi_2,\cdots)$，一步转移矩阵 $\bm P=\begin{pmatrix}
+            p_{ij}
+        \end{pmatrix}$，那么有
+        %\begin{small}
+            \begin{align}
+                \bm\pi^T=\bm\pi^T\cdot\bm P\text{ 或者说 }
+                \bm\pi=\bm P^T\cdot\bm\pi.
+            \end{align}            
+        %\end{small}
+        意义：$\pi_j$与时间推移$n$无关. 在任意时刻，系统处于同一状态的概率是相同的.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markov链平稳分布的判别}
+    \begin{mytheorem}[Markov链平稳分布的判别]
+        不可约、非周期Markov链是正常返的充分必要条件是：存在
+        平稳分布$\set{\pi_j,\quad j\in I}$，且此平稳分布就是极限分布
+        $\set{1/\mu_j,\quad j\in I}$. 即，
+        \begin{equation}
+            \lim_{n\to\infty}p_{ij}^{(n)}=\frac1{\mu_j}=\pi_j.
+        \end{equation} 
+    \end{mytheorem}
+    \begin{columns}
+        \begin{column}{.18\columnwidth}
+            \begin{mycorollary}
+                不可约、非周期、有限状态的Markov链必存在平稳分布. 
+            \end{mycorollary}
+        \end{column}
+        \begin{column}{.22\columnwidth}
+            \begin{mycorollary}
+                若不可约Markov链的所有状态是非常返或零常返的，则不存在平稳分布. 
+            \end{mycorollary}
+        \end{column}
+        \begin{column}{.5\columnwidth}
+            \begin{mycorollary}
+                若$\set{\pi_j,\quad j\in I}$是不可约非周期Markov链的
+                平稳分布，则
+                \begin{equation}
+                    \lim_{n\to\infty}p_j(n)=\frac1{\mu_j}=\pi_j.
+                \end{equation}
+            \end{mycorollary}
+        \end{column}        
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{一般齐次Markov链的平稳分布}
+    \textbf{齐次}Markov链是否存在平稳分布？如果存在，是否唯一？如何计算？
+    我们分三种情况讨论. 
+    \begin{mytheorem}[不可约遍历链]
+        设$X=\set{X_n,n=0,1,\cdots}$是\textbf{不可约的遍历链}，
+        则$X$存在唯一的极限分布
+        \begin{equation*}
+            \set{\pi_j=\frac1{\mu_{jj}},\quad j\in I},
+        \end{equation*}
+        且此时的极限分布就是平稳分布. 
+
+        平稳分布可以通过求解下列方程组求解：
+        \begin{equation*}
+            \begin{cases}
+                \pi_j=\displaystyle\sum_{i\in I}\pi_i p_{ij},\quad j\in I,\\
+                \displaystyle\sum_{i\in I}\pi_i=1.
+            \end{cases}
+        \end{equation*}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{一般齐次Markov链的平稳分布}
+    \begin{mytheorem}[不可约正常返链]
+        设$X=\set{X_n,n=0,1,\cdots}$是\textbf{不可约齐次Markov链}，
+        其状态空间$I$中的每个状态都是\textbf{正常返}，
+        则$X$有唯一的平稳分布
+        \begin{equation*}
+            \set{\pi_j=\frac1{\mu_{jj}},\quad j\in I}.
+        \end{equation*}
+
+        平稳分布可以通过求解下列方程组求解：
+        \begin{equation*}
+            \begin{cases}
+                \pi_j=\displaystyle\sum_{i\in I}\pi_i p_{ij},\quad j\in I,\\
+                \displaystyle\sum_{i\in I}\pi_i=1.
+            \end{cases}
+        \end{equation*}
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{一般齐次Markov链的平稳分布}
+    \begin{mytheorem}[一般齐次Markov链]
+        设$X$的状态空间$S=D\cup C_0\cup C_1\cup\cdots$,其中$D$是
+        非常返状态集，$C_0$是零常返状态集，$C_m,\ m=1,2,\cdots$
+        是正常返状态的不可约闭集. 
+        
+        记$
+            H=\displaystyle\bigcup_{k\geqslant i}C_k
+        $，
+        则\begin{enumerate}
+            \item $X$不存在平稳分布的充分必要条件是$H=\varnothing$；
+            \item $X$存在唯一平稳分布的充分必要条件是只有一个正常返的不可约闭集；
+            \item $X$存在无穷多个平稳分布的充分必要条件是存在两个及以上正常返的不可约闭集. 
+        \end{enumerate}
+    \end{mytheorem}
+    \begin{block}{注}
+        若$X$存在两个及以上正常返的不可约闭集，则在每个闭集内分别求解平稳分布，
+        再将这些平稳分布进行线性组合就得到了整个Markov链的平稳分布，但该平稳分布不唯一.
+    \end{block}
+\end{frame}

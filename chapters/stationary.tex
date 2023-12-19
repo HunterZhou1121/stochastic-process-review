@@ -79,3 +79,202 @@
     \end{mydefinition}
 
 \end{frame}
+
+\subsection{平稳过程的遍历性定理}
+
+\begin{frame}
+    \frametitle{平稳过程（序列）的遍历性}
+    \begin{mydefinition}[均值遍历性]
+        设$X=\set{X(t),-\infty<t<+\infty}$为一平稳过程（序列），若
+        \begin{equation*}
+            \overline X=\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}X(t)\ \mathrm dt\overset{L_2}{=}m
+        \end{equation*}
+        或
+        \begin{equation*}
+            \overline X=\lim_{N\to\infty}\frac1{2N+1}\sum_{k=-N}^NX(k)\overset{L_2}{=}m,
+        \end{equation*}
+        则称$X$的均值具有遍历性\footnotemark . 
+    \end{mydefinition}
+    如果随机过程（序列）的均值和协方差函数都具有遍历性，称此随机过程有遍历性（各态历经性）. 
+    \footnotetext{均值遍历性定义中的极限是均方极限，不是通常的极限；协方差函数遍历性的定义同理，略.}
+\end{frame}
+
+\setcounter{footnote}{0}
+
+\begin{frame}
+    \frametitle{均值遍历性定理}
+    \begin{columns}
+        \begin{column}{0.55\columnwidth}
+            \begin{mytheorem}[均值遍历性定理]
+                \begin{enumerate}
+                    \item 设$X=\set{X_n,n=0,\pm1,\cdots}$为平稳序列，其协方差函数为$R(\tau)$，则$X$有均值遍历性的充分必要条件是
+                    \begin{equation}
+                        \lim_{N\to\infty}\frac1N\sum_{\tau=0}^{N-1}R(\tau)=0.
+                    \end{equation}
+                    \item 若$X=\set{X(t),-\infty<t<+\infty}$为平稳过程，则$X$有均值遍历性的充分必要条件是
+                    \begin{equation}
+                        \lim_{T\to\infty}\frac1T\int_0^{2T}\left(1-\frac{\tau}{2T}\right)R(\tau)\ \mathrm d\tau=0.
+                    \end{equation}
+                \end{enumerate}
+            \end{mytheorem}            
+        \end{column}
+        \begin{column}{0.40\columnwidth}
+            \begin{mycorollary}[平稳过程均值遍历性成立的充分条件]
+                \begin{enumerate}
+                    \item 对平稳序列，若
+                    \begin{equation}
+                        \displaystyle\lim_{\tau\to\infty}R(\tau)=0,
+                    \end{equation}
+                    则均值遍历性成立；
+                    \item 对平稳过程，若
+                    \begin{equation}
+                        \displaystyle\int_{-\infty}^{+\infty}|R(\tau)|\ \mathrm d\tau<\infty,
+                    \end{equation}
+                    则均值遍历性成立.
+                \end{enumerate}
+            \end{mycorollary}          
+        \end{column}        
+    \end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{协方差函数的遍历性}
+    协方差函数的遍历性涉及到过程的四阶矩，一般很难验证. 但，对Gauss过程，判定容易得多. 
+    \begin{mytheorem}[Gauss序列协方差函数的遍历性]
+        设$X=\set{X_n,n=0,\pm1,\cdots}$是均值为0的Gauss平稳序列，如果
+        \begin{equation}
+            \lim_{N\to\infty}\frac1N\sum_{k=0}^{N-1}R^2(k)=0,
+        \end{equation}
+        则该Gauss序列的协方差函数有遍历性. 
+    \end{mytheorem}
+\end{frame}
+
+\subsection{平稳过程的协方差函数和功率谱密度}
+
+\begin{frame}
+    \frametitle{平稳过程的协方差函数}
+    % \begin{columns}
+    %     \begin{column}{0.45\columnwidth}
+    %         \begin{mydefinition}[平稳过程的导数]
+    %             如果存在$Y(t),t\in T$使得
+    %             \begin{equation}
+    %                 \small\lim_{h\to0}E\abs{\frac{X(t+h)-X(t)}{h}-Y(t)}^2=0,
+    %             \end{equation}
+    %             则称$Y=\set{Y(t)}$为过程$X$在$t$点的均方导数，简称导数，并记为$X'(t)$或$\dfrac{\mathrm dX(t)}{\mathrm dt}$.
+    %         \end{mydefinition}            
+    %     \end{column}
+    %     \begin{column}{0.45\columnwidth}
+    %         \begin{myproposition}
+    %             均方导数存在的充分必要条件是
+    %             \begin{equation}
+    %                 \small\lim_{\substack{h\to0\\k\to0}}\frac{R(0)-R(h)-R(k)+R(h-k)}{hk}
+    %             \end{equation}
+    %             存在且有限.
+    %         \end{myproposition}            
+    %     \end{column}        
+    % \end{columns}
+    \small
+    \begin{mydefinition}[平稳过程的导数]
+        如果存在$Y(t),t\in T$使得
+        \begin{equation}
+            \lim_{h\to0}E\abs{\frac{X(t+h)-X(t)}{h}-Y(t)}^2=0,
+        \end{equation}
+        则称$Y=\set{Y(t)}$为过程$X$在$t$点的均方导数，简称导数，并记为$X'(t)$或$\dfrac{\mathrm dX(t)}{\mathrm dt}$.
+    \end{mydefinition} 
+    \begin{myproposition}
+        均方导数存在的充分必要条件是
+        \begin{equation}
+            \lim_{\substack{h\to0\\k\to0}}\frac{R(0)-R(h)-R(k)+R(h-k)}{hk}
+        \end{equation}
+        存在且有限.
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{平稳过程的协方差函数}
+    \begin{myproposition}[平稳过程协方差函数的性质]
+        对平稳过程$X$的协方差函数$R(\tau)$，有如下性质\footnotemark ：
+        \begin{enumerate}
+            \item 对称性：$R(-\tau)=R(\tau)$. 
+            \item 有界性：$\abs{R(\tau)}\leqslant R(0)$.
+            \item 非负定性：对任意的时刻$t_m$和实数$a_n,n=1,2,\cdots,N$，有
+                \begin{equation}
+                    \sum_{n=1}^N\sum_{m=1}^Na_na_mR(t_n-t_m)\geqslant 0.
+                \end{equation}
+            \item 平稳过程$n$阶导数的协方差函数为
+                \begin{equation}
+                    \mathrm{Cov}\parentheses{X^{(n)}(t),X^{(n)}(t+\tau)}=(-1)^nR^{(2n)}(\tau). 
+                \end{equation}
+        \end{enumerate}
+    \end{myproposition}
+    \footnotetext{前三条性质是一般协方差函数即有的性质；第四条性质中假定涉及到的导数都存在. }
+\end{frame}
+
+\setcounter{footnote}{0}
+
+\begin{frame}
+    \frametitle{平稳过程的功率谱密度}
+    \begin{mytheorem}[Wiener-Khintchine公式]\footnotesize
+        假定$EX(t)=0$，且$\displaystyle\int_{-\infty}^{+\infty}\abs{R(\tau)}\ \mathrm d\tau<\infty$，则
+        \begin{align}
+            S(\omega)&=\int_{-\infty}^{+\infty}R(\tau)\mathrm e^{-\mathrm i\omega\tau}\ \mathrm d\tau,\\
+            R(\tau)&=\frac1{2\pi}\int_{-\infty}^{+\infty}S(\omega)\mathrm e^{\mathrm i\omega\tau}\ \mathrm d\omega.
+        \end{align}
+    \end{mytheorem}
+    \begin{mycorollary}\footnotesize
+        由$R(\tau)$和$S(\omega)$是偶函数得到
+        \begin{align}
+            S(\omega)&=2\int_0^{+\infty}R(\tau)\cos\omega\tau\ \mathrm d\tau,\\
+            R(\tau)&=\frac1{\pi}\int_0^{+\infty}S(\omega)\cos\omega\tau\ \mathrm d\omega. 
+        \end{align}
+    \end{mycorollary}
+\end{frame}
+
+\begin{frame}
+    \frametitle{平稳过程的功率谱密度}
+    \begin{myproposition}[功率谱密度的必要条件]
+        \begin{itemize}
+            \item 功率谱密度$S(\omega)$是$\omega$的非负实值偶函数. 
+            \item 最常见的为有理谱密度
+            \begin{equation*}
+                S(\omega)=\frac{P(\omega)}{Q(\omega)}=s_0\frac{\omega^{2n}+a_{2n-2}\omega^{2n-2}+\cdots+a_2\omega^2+a_0}{\omega^{2m}+b_{2m-2}\omega^{2m-2}+\cdots+b_2\omega^2+b_0},
+            \end{equation*}
+            其中$s_0>0$，分母不能有实根且分母多项式次数至少比分子高2（也就是$m>n$）. 
+        \end{itemize}
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{由有理功率谱密度求协方差函数}
+    \begin{exampleblock}{由有理功率谱密度求协方差函数}
+        设平稳过程$X$的功率谱密度为有理谱密度
+        \begin{equation*}
+            S(\omega)=\frac{P(\omega)}{Q(\omega)}.
+        \end{equation*}
+        考虑$\tau\geqslant 0$的情形：设$a_1,a_2,\cdots,a_n$是$f(z)$在\textbf{上半平面的全部奇点}，则根据命题 \ref{prop:residue-P/Q-exp}，有
+        \small
+        \begin{align}
+            R(\tau)&=\frac1{2\pi}\int_{-\infty}^{+\infty}S(\omega)\mathrm e^{\mathrm i\omega\tau}\ \mathrm d\omega\notag\\
+            &=\frac1{2\pi}\cdot 2\pi\mathrm i\sum_{k=1}^n\Res{\frac{P(z)}{Q(z)}\mathrm e^{\mathrm i\tau z}}{a_k}\notag\\
+            &=\mathrm i\sum_{k=1}^n\Res{\frac{P(z)\mathrm e^{\mathrm i\tau z}}{Q(z)}}{a_k}.
+        \end{align}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{由有理功率谱密度求协方差函数（Cont.）}
+    \begin{exampleblock}{由有理功率谱密度求协方差函数（Cont.）}
+        根据推论 \ref{cor:residue-P/Q}，有
+        \begin{align}
+            R(\tau)&=\mathrm i\sum_{k=1}^n\Res{\frac{P(z)\mathrm e^{\mathrm i\tau z}}{Q(z)}}{a_k}\notag\\
+            &=\mathrm i\sum_{k=1}^n\frac{P(a_k)\mathrm e^{\mathrm i\tau a_k}}{Q'(a_k)}\\
+            &=f(\tau),\quad \tau\geqslant 0\notag.
+        \end{align}
+        因为$R(\tau)$是关于$\tau$的偶函数，所以有
+        \begin{equation}
+            R(\tau)=f\parentheses{\abs{\tau}},\quad -\infty<\tau<+\infty. 
+        \end{equation}
+    \end{exampleblock}
+\end{frame}

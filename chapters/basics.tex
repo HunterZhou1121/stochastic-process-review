@@ -306,3 +306,65 @@
         \end{align}
     \end{exampleblock}
 \end{frame}
+
+\begin{frame}
+    \frametitle{留数定理与极点的判定}
+    \begin{mytheorem}[留数定理]
+        设$f(z)$在闭路$C$上解析，在$C$内部除了$n$个孤立奇点$a_1,a_2,\cdots,a_n$外解析，则
+        \begin{equation}
+            \int_Cf(z)\ \mathrm dz=2\pi\mathrm i\sum_{k=1}^n\Res{f(z)}{a_k}.
+        \end{equation}
+    \end{mytheorem}
+    \begin{mytheorem}[极点的判定]
+        设$a$是$f(z)$的孤立奇点，$m\in\N^+$，则$a$是$f(z)$的$m$级极点，当且仅当$a$是$1/f(z)$的$m$级零点. 
+    \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{留数的计算}
+    \footnotesize
+    \begin{mytheorem}[留数的计算：$m$级极点]
+        设$a$是$f(z)$的$m$级极点，则
+        \begin{equation}
+            \Res{f(z)}{a}=\frac1{(m-1)!}\lim_{z\to a}\frac{\mathrm d^{m-1}}{\mathrm dz^{m-1}}\set{(z-a)^mf(z)}. 
+        \end{equation}
+        特别，若$a$是$f(z)$的1级极点，则
+        \begin{equation}
+            \Res{f(z)}{a}=\lim_{z\to a}(z-a)f(z).
+        \end{equation}
+    \end{mytheorem}
+    \begin{mycorollary}\label{cor:residue-P/Q}
+        设$P(z),Q(z)$都在$a$点解析，$P(a)\neq0,Q(a)=0,Q'(a)\neq0$，则
+        \begin{equation}
+            \Res{\frac{P(z)}{Q(z)}}{z}=\frac{P(a)}{\displaystyle\lim_{z\to a}\dfrac{\mathrm dQ(z)}{\mathrm dz}}. 
+        \end{equation}
+    \end{mycorollary}
+\end{frame}
+
+\begin{frame}
+    \frametitle{利用留数定理计算定积分}
+    \begin{myproposition}[有理函数广义积分]
+        设$R(x)=\dfrac{P(x)}{Q(x)},x\in\R$，$P(x),Q(x)$是$x$的多项式，$Q(x)$比$P(x)$的次数至少高2次，且$\forall x\in\R,Q(x)\neq 0$，则
+        \begin{equation}
+            \int_{-\infty}^{+\infty}\frac{P(x)}{Q(x)}\ \mathrm dx=2\pi\mathrm i\sum_{k=1}^n\Res{\frac{P(z)}{Q(z)}}{a_k},
+        \end{equation}
+        其中$a_1,a_2,\cdots,a_n$是$\dfrac{P(z)}{Q(z)}$在\textbf{上半平面}的全部奇点. 
+    \end{myproposition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{利用留数定理计算定积分}
+    \small
+    \begin{myproposition}\label{prop:residue-P/Q-exp}
+        设$m>0$，$P(x),Q(x)$是实数$x$的多项式，且$Q(x)$比$P(x)$的次数至少高1次、$\forall x\in\R,Q(x)\neq 0$，则
+        \begin{equation}
+            I=\int_{-\infty}^{+\infty}\frac{P(x)}{Q(x)}\mathrm e^{\mathrm imx}\ \mathrm dx=2\pi\mathrm i\sum_{k=1}^n\Res{\frac{P(z)}{Q(z)}\mathrm e^{\mathrm imz}}{a_k},
+        \end{equation}
+        其中$a_1,a_2,\cdots,a_n$是$f(z)=\dfrac{P(z)}{Q(z)}\mathrm e^{\mathrm imz}$在上半平面的全部奇点. 
+        特别，
+        \begin{align}
+            I_1&=\int_{-\infty}^{+\infty}\frac{P(x)}{Q(x)}\cos mx\ \mathrm dx=\mathrm{Re} I,\\
+            I_2&=\int_{-\infty}^{+\infty}\frac{P(x)}{Q(x)}\sin mx\ \mathrm dx=\mathrm{Im} I.
+        \end{align}        
+    \end{myproposition}
+\end{frame}
